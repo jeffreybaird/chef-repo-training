@@ -16,7 +16,7 @@ service "httpd" do
 end
 
 execute "mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/elcome.conf.disabled" do
-  only_if {File.exist?('/etc/httpd/conf.d/welcome.conf'}
+  only_if {File.exist?('/etc/httpd/conf.d/welcome.conf')}
   notifies :restart, 'service[httpd]'
 end
 
