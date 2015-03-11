@@ -11,11 +11,7 @@ package "httpd" do
   action :install
 end
 
-service "httpd" do
-  action [:enable, :start]
-end
-
-execute "mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/elcome.conf.disabled" do
+execute "mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.disabled" do
   only_if {File.exist?('/etc/httpd/conf.d/welcome.conf')}
   notifies :restart, 'service[httpd]'
 end
@@ -25,7 +21,7 @@ node["apache"]["sites"].each do |site_name,site_data|
   document_root = "/srv/apache/#{site_name}"
 
 
-  template "/etc/httpd /conf.d/#{site_name}.conf.d" do
+  template "/etc/httpd/conf.d/#{site_name}.conf" do
     source 'custom.erb'
     mode '0644'
     variables(
@@ -37,7 +33,7 @@ node["apache"]["sites"].each do |site_name,site_data|
 
   directory "#{document_root}" do
     mode '0755'
-    recursive :true
+    recursive true
     action :create
   end
 
@@ -49,8 +45,9 @@ node["apache"]["sites"].each do |site_name,site_data|
       port: site_data["port"]
       )
   end
-
-
 end
 
+service "httpd" do
+  action [:enable, :start]
+end
 

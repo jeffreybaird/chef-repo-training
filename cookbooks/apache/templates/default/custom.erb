@@ -8,11 +8,12 @@
   DocumentRoot <%= @document_root %>
   <Directory />
     Options FollowSymLinks
-    AllowOverride Node
+    AllowOverride None
   </Directory>
   <Directory <%= @document_root %>>
     Options Indexes FollowSymLinks MultiViews
     AllowOverride None
-    Order allow, deny
+    Order allow,deny
     allow from all
   </Directory>
+  </VirtualHost>
