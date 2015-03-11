@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <h1>Welcome to <%= node["motd"]["company"] %></h1>
+  <h2>We love <%= @site_name %></h2>
+  <%= node["ipaddress"] %>:<%= @port %>
+</body>
+</html>
